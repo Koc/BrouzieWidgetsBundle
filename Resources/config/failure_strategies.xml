@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="brouzie_widgets.failure_strategy.rethrow"
+                 class="Brouzie\WidgetsBundle\FailureStrategy\RethrowFailureStrategy" public="false">
+            <tag name="brouzie_widgets.failure_strategy" strategy="rethrow" />
+        </service>
+
+        <service id="brouzie_widgets.failure_strategy.output_message"
+                 class="Brouzie\WidgetsBundle\FailureStrategy\OutputMessageFailureStrategy" public="false">
+            <tag name="brouzie_widgets.failure_strategy" strategy="output_message" />
+            <argument /> <!-- output message, injected by extension -->
+        </service>
+    </services>
+</container>

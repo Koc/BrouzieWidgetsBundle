@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="brouzie_widgets.widget_manager" class="Brouzie\WidgetsBundle\Manager\WidgetManager">
+            <argument type="service" id="brouzie_widgets.loader" />
+            <argument type="service" id="brouzie_widgets.renderer" />
+            <argument type="service" id="brouzie_widgets.failure_strategy" />
+            <argument type="service" id="event_dispatcher" />
+            <argument /> <!-- logger, injected by extension -->
+        </service>
+    </services>
+</container>

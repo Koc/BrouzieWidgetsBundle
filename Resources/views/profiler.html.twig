@@ -1,0 +1,60 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% set icon %}
+        {#{{ include('@WebProfiler/Icon/twig.svg') }}#}
+        <span class="sf-toolbar-value">{{ collector.widgetsCreatedCount }}</span>
+        {#<span class="sf-toolbar-label">ms</span>#}
+    {% endset %}
+
+    {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Widgets Created</b>
+            <span class="sf-toolbar-status">{{ collector.widgetsCreatedCount }}</span>
+        </div>
+        <div class="sf-toolbar-info-piece">
+            <b>Widgets Rendered</b>
+            <span class="sf-toolbar-status">{{ collector.widgetsRenderedCount }}</span>
+        </div>
+    {% endset %}
+
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        {#<span class="icon">{{ include('@WebProfiler/Icon/twig.svg') }}</span>#}
+        <strong>Widgets</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% if collector.widgetsCreatedCount == 0 %}
+        <h2>Widgets</h2>
+
+        <div class="empty">
+            <p>No widgets was created for this request.</p>
+        </div>
+    {% else %}
+        <h2>Widgets</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">Widget</th>
+                <th scope="col">Options</th>
+                <th scope="col">Rendered</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for widget in collector.widgets %}
+                <tr>
+                    <td><abbr title="{{ widget.class }}">{{ widget.name }}</abbr></td>
+                    <td>{{ dump(widget.options) }}</td>
+                    <td class="font-normal">{{ widget.rendered ? 'Yes' : 'No' }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

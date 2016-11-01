@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="brouzie_widgets.renderer.stopwatch" class="Brouzie\WidgetsBundle\Renderer\StopwatchRenderer"
+                 public="false">
+            <argument type="service" id="debug.stopwatch" />
+            <argument type="service" id="brouzie_widgets.renderer.stopwatch.inner" />
+        </service>
+
+        <service id="brouzie_widgets.data_collector_widget_manager"
+                 class="Brouzie\WidgetsBundle\Manager\DataCollectorWidgetManager" public="false">
+            <argument type="service" id="brouzie_widgets.data_collector_widget_manager.inner" />
+        </service>
+
+        <service id="brouzie_widgets.data_collector"
+                 class="Brouzie\WidgetsBundle\DataCollector\WidgetsDataCollector">
+            <argument type="service" id="brouzie_widgets.data_collector_widget_manager" />
+            <tag name="data_collector" template="@BrouzieWidgets/profiler.html.twig" id="brouzie_widgets"  />
+        </service>
+    </services>
+</container>

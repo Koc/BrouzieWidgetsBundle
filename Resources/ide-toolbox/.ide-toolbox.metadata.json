@@ -1,0 +1,31 @@
+{
+    "registrar": [
+        {
+            "signatures": [
+                {
+                    "class": "Brouzie\\WidgetsBundle\\Manager\\WidgetManagerInterface",
+                    "method": "createWidget"
+                },
+                {
+                    "class": "Brouzie\\WidgetsBundle\\Manager\\WidgetManagerInterface",
+                    "method": "createWidget",
+                    "type": "type"
+                }
+            ],
+            "provider": "brouzie_widgets.widgets",
+            "language": "php"
+        },
+        {
+            "signatures": [
+                {
+                    "function": "brouzie_widget"
+                },
+                {
+                    "function": "brouzie_render_widget"
+                }
+            ],
+            "provider": "brouzie_widgets.widgets",
+            "language": "twig"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="brouzie_widgets.renderer.twig"
+                 class="Brouzie\WidgetsBundle\Renderer\TwigRenderer" public="false">
+            <argument type="service" id="twig" />
+            <tag name="brouzie_widgets.renderer" priority="100" />
+        </service>
+
+        <service id="brouzie_widgets.renderer.content"
+                 class="Brouzie\WidgetsBundle\Renderer\ContentRenderer" public="false">
+            <tag name="brouzie_widgets.renderer" />
+        </service>
+
+        <service id="brouzie_widgets.renderer.twig_delayed"
+                 class="Brouzie\WidgetsBundle\Renderer\DelayedTwigRenderer" public="false">
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="brouzie_widgets.renderer.chain"
+                 class="Brouzie\WidgetsBundle\Renderer\ChainRenderer" public="false">
+            <argument /> <!-- renderers, injected by compiler pass -->
+        </service>
+    </services>
+</container>
