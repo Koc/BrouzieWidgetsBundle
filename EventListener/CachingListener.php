@@ -34,13 +34,13 @@ class CachingListener implements EventSubscriberInterface
             return;
         }
 
-        $item = $this->cache->getItem($this->getCacheKey($cacheProfile));
+        $item = $this->cache->getItem($this->getCacheKey($cacheProfile, $widget->getName()));
 
         if ($item->isHit()) {
             $event->setResponse($item->get());
             $event->stopPropagation();
         } else {
-            // schedule widget to cache
+            // schedule store widget in cache
             $this->widgetsToCache[spl_object_hash($widget)] = true;
         }
     }
@@ -52,18 +52,18 @@ class CachingListener implements EventSubscriberInterface
             return;
         }
 
+        $hash = spl_object_hash($widget);
+        if (!isset($this->widgetsToCache[$hash])) {
+            // widget not scheduled for caching (or maybe already cached)
+            return;
+        }
+
         $cacheProfile = $widget->getCacheProfile();
         if (!$cacheProfile instanceof CacheProfile) {
             return;
         }
 
-        $hash = spl_object_hash($widget);
-        if (!isset($this->widgetsToCache[$hash])) {
-            // widget not scheduled for caching (maybe already cached)
-            return;
-        }
-
-        $item = $this->cache->getItem($this->getCacheKey($cacheProfile));
+        $item = $this->cache->getItem($this->getCacheKey($cacheProfile, $widget->getName()));
 
         $item->set($event->getResponse());
         $cacheProfile->configureCacheItem($item);
@@ -79,8 +79,14 @@ class CachingListener implements EventSubscriberInterface
         );
     }
 
-    private function getCacheKey(CacheProfile $cacheProfile)
+    private function getCacheKey(CacheProfile $cacheProfile, $widgetName)
     {
-        return sprintf(self::CACHE_KEY_PATTERN, $cacheProfile->getKey());
+        if (null === $key = $cacheProfile->getKey()) {
+            $keyItems = $cacheProfile->getKeyItems();
+            $keyItems[] = $widgetName;
+            $key = sha1(serialize($keyItems));
+        }
+
+        return sprintf(self::CACHE_KEY_PATTERN, $key);
     }
 }

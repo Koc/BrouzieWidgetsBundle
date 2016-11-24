@@ -44,7 +44,7 @@ class WidgetsDataCollector extends DataCollector implements LateDataCollectorInt
         $count = 0;
         foreach ($this->data['widgets'] as $widget) {
             if ($widget['rendered']) {
-                $count++;
+                ++$count;
             }
         }
 

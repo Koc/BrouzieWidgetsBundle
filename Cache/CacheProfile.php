@@ -9,28 +9,47 @@ class CacheProfile
 {
     private $key;
 
+    private $keyItems;
+
     private $ttl;
 
     private $tags;
 
     /**
-     * @param string|string[] $key
+     * @param string|string[]|array|callable $key
      * @param int|null $ttl
      * @param array $tags
      */
     public function __construct($key, $ttl = null, array $tags = array())
     {
-        if (is_array($key)) {
-            $key = sha1(serialize($key));
+        if (!empty($key) && (is_callable($key) || is_string($key))) {
+            $this->key = $key;
+        } elseif (is_array($key)) {
+            $this->keyItems = $key;
+        } else {
+            throw new \InvalidArgumentException('Key must be an array of key items or not empty string or callable.');
         }
-        $this->key = $key;
+
         $this->ttl = $ttl;
         $this->tags = $tags;
     }
 
+    /**
+     * @return string|null
+     */
     public function getKey()
     {
-        return $this->key;
+        $key = $this->key;
+
+        return is_callable($key) ? $key() : $key;
+    }
+
+    /**
+     * @return string[]|null
+     */
+    public function getKeyItems()
+    {
+        return $this->keyItems;
     }
 
     public function getTtl()

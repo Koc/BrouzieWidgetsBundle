@@ -1,4 +1,5 @@
 <?php
+
 namespace Brouzie\WidgetsBundle\Manager;
 
 use Brouzie\WidgetsBundle\Widget\Widget;
