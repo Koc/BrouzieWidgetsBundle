@@ -20,6 +20,7 @@ class BrouzieWidgetsExtension extends Extension
         $loader->load('loaders.xml');
         $loader->load('renderers.xml');
         $loader->load('listeners.xml');
+        $loader->load('object_normalizers.xml');
         $loader->load('failure_strategies.xml');
         $loader->load('manager.xml');
         $loader->load('twig.xml');

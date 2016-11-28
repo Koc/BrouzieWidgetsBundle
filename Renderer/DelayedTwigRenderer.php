@@ -14,15 +14,18 @@ class DelayedTwigRenderer extends TwigRenderer
 
     private $container;
 
-    public function __construct(ContainerInterface $container)
+    private $twigServiceId;
+
+    public function __construct(ContainerInterface $container, $twigServiceId = 'twig')
     {
         $this->container = $container;
+        $this->twigServiceId = $twigServiceId;
     }
 
     public function render(Widget $widget)
     {
         if (!$this->initialized) {
-            parent::__construct($this->container->get('twig'));
+            parent::__construct($this->container->get($this->twigServiceId));
             $this->initialized = true;
         }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="brouzie_widgets.cache.doctrine_object_normalizer"
+                 class="Brouzie\WidgetsBundle\Cache\ObjectNormalizer\DoctrineObjectNormalizer">
+            <argument /> <!-- object managers, injected by compiler pass -->
+            <tag name="brouzie_widgets.object_normalizer" priority="-100" />
+        </service>
+
+        <service id="brouzie_widgets.cache.object_normalizer"
+                 class="Brouzie\WidgetsBundle\Cache\ObjectNormalizer\LazyObjectNormalizer">
+            <argument type="service" id="service_container" />
+            <argument /> <!-- normalizer services ids, injected by compiler pass -->
+        </service>
+    </services>
+</container>
