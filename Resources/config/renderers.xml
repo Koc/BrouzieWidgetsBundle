@@ -6,7 +6,6 @@
         <service id="brouzie_widgets.renderer.twig"
                  class="Brouzie\WidgetsBundle\Renderer\TwigRenderer" public="false">
             <argument type="service" id="twig" />
-            <tag name="brouzie_widgets.renderer" priority="100" />
         </service>
 
         <service id="brouzie_widgets.renderer.content"
@@ -17,6 +16,7 @@
         <service id="brouzie_widgets.renderer.twig_delayed"
                  class="Brouzie\WidgetsBundle\Renderer\DelayedTwigRenderer" public="false">
             <argument type="service" id="service_container" />
+            <tag name="brouzie_widgets.renderer" priority="100" />
         </service>
 
         <service id="brouzie_widgets.renderer.chain"
