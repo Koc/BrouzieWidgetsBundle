@@ -8,8 +8,6 @@ abstract class ContentWidget implements Widget
 {
     use OptionsAwareTrait;
 
-    use NameAwareTrait;
-
     public function configureOptions(OptionsResolver $resolver)
     {
     }

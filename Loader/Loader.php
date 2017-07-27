@@ -7,7 +7,7 @@ use Brouzie\WidgetsBundle\Widget\Widget;
 interface Loader
 {
     /**
-     * Loads widget by given name and set it.
+     * Loads widget by given name.
      *
      * @param string $name
      *

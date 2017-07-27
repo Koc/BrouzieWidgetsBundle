@@ -41,8 +41,6 @@ class ContainerAwareSimpleLoader implements Loader
             throw new WidgetNotImplementsException($name, $widget);
         }
 
-        $widget->setName($name);
-
         if ($widget instanceof ContainerAwareInterface) {
             $widget->setContainer($this->container);
         }

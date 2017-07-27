@@ -19,7 +19,7 @@ class StopwatchRenderer implements Renderer
 
     public function render(Widget $widget)
     {
-        $e = $this->stopwatch->start(sprintf('Widget (%s)', $widget->getName()), 'brouzie_widgets');
+        $e = $this->stopwatch->start(sprintf('Widget (%s)', get_class($widget)), 'brouzie_widgets');
         $result = $this->renderer->render($widget);
         $e->stop();
 

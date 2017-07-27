@@ -7,20 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 interface Widget
 {
     /**
-     * Sets this widget name.
-     *
-     * @param string $name
-     */
-    public function setName($name);
-
-    /**
-     * Gets name of this widget.
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
      * Configures available options for this widget.
      *
      * @param OptionsResolver $resolver The resolver for the available widget options

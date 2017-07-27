@@ -8,8 +8,6 @@ abstract class TwigWidget implements Widget
 {
     use OptionsAwareTrait;
 
-    use NameAwareTrait;
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefault('_template', $this->getDefaultTemplate());
@@ -33,6 +31,7 @@ abstract class TwigWidget implements Widget
 
     protected function getDefaultTemplate()
     {
+        //FIXME: fix template name
         list($bundle, $widgetName) = explode(':', $this->getName());
 
         $path = str_replace(array('_', '\\'), '/', $widgetName);

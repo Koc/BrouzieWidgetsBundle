@@ -49,8 +49,9 @@ class WidgetManager implements WidgetManagerInterface
 
     public function renderWidget(Widget $widget)
     {
+        $widgetName = get_class($widget);
         if (null !== $this->logger) {
-            $this->logger->debug('Start rendering widget.', array('widget' => $widget->getName()));
+            $this->logger->debug('Start rendering widget.', array('widget' => $widgetName));
         }
 
         $event = new WidgetEvent($widget);
@@ -61,7 +62,7 @@ class WidgetManager implements WidgetManagerInterface
 
             if ($event->hasResponse()) {
                 if (null !== $this->logger) {
-                    $this->logger->info('There is response for widget from listener. Renderer was not called.', array('widget' => $widget->getName()));
+                    $this->logger->info('There is response for widget from listener. Renderer was not called.', array('widget' => $widgetName));
                 }
             } else {
                 $response = $this->renderer->render($widget);
@@ -73,13 +74,13 @@ class WidgetManager implements WidgetManagerInterface
             return $event->getResponse();
         } catch (\Exception $e) {
             if (null !== $this->logger) {
-                $this->logger->critical('An exception occurred while rendering widget.', array('widget' => $widget->getName(), 'exception' => $e));
+                $this->logger->critical('An exception occurred while rendering widget.', array('widget' => $widgetName, 'exception' => $e));
             }
 
             return $this->failureStrategy->handleException($e);
         } catch (\Throwable $e) {
             if (null !== $this->logger) {
-                $this->logger->critical('An exception occurred while rendering widget.', array('widget' => $widget->getName(), 'exception' => $e));
+                $this->logger->critical('An exception occurred while rendering widget.', array('widget' => $widgetName, 'exception' => $e));
             }
 
             $e = new ThrowableException($e);
